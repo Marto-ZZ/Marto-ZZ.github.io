@@ -1,7 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Te amo Tiziana</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+
+        canvas {
+            background-color: white;
+        }
+
+        h1 {
+            color: red;
+            font-family: 'Arial', sans-serif;
+            font-size: 24px;
+            margin: 10px;
+        }
+        
+        .heart {
+            color: red;
+            font-size: 24px;
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+
+<h1>Te amo Tiziana <span class="heart">❤</span></h1>
+<canvas id="canvas" width="300" height="300"></canvas>
+
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Función para dibujar un pétalo
+    function drawPetal(x, y, radius, angle) {
+        ctx.beginPath();
+        ctx.ellipse(x, y, radius, radius * 0.6, angle, 0, Math.PI * 2);
+        ctx.fillStyle = 'yellow';
+        ctx.fill();
+        ctx.stroke();
+    }
+
+    // Dibujar girasol
+    function drawSunflower() {
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const petalCount = 20;
+        const radius = 100;
+
+        // Dibujar pétalos
+        for (let i = 0; i < petalCount; i++) {
+            const angle = (i * 360 / petalCount) * Math.PI / 180;
+            const x = centerX + radius * Math.cos(angle);
+            const y = centerY + radius * Math.sin(angle);
+            drawPetal(x, y, 40, angle);
+        }
+
+        // Dibujar centro
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 30, 0, Math.PI * 2);
+        ctx.fillStyle = 'brown';
+        ctx.fill();
+    }
+
+    // Iniciar dibujo
+    drawSunflower();
+</script>
+
 </body>
 </html>
