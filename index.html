@@ -12,30 +12,55 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #fff7ab;
+            background-color: #ffabf8;
         }
 
         canvas {
-            background-color: #fff7ab;
-            border: 1px solid rgb(154, 211, 255);
+            background-color: #abf8ff;
+            border: 10px solid rgb(154, 211, 255);
         }
 
         h1 {
             color: rgb(0, 0, 0);
-            font-family: 'Arial', sans-serif;
-            font-size: 24px;
-            margin: 10px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 48px;
+            margin: 15px;
         }
         
         .heart {
-            color: red;
-            font-size: 24px;
+            color: rgb(255, 0, 0);
+            font-size: 48px;
+        }
+        
+        .fade-in-letter {
+            display: inline-block;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
     </style>
 </head>
 <body>
 
-<h1>Te amo Tiziana <span class="heart">❤</span></h1>
+<h1 id="fade-text">
+        <!-- Cada letra envuelta en un span individual -->
+    <span class="fade-in-letter">T</span>
+    <span class="fade-in-letter">e</span>
+    <span class="fade-in-letter"> </span>
+    <span class="fade-in-letter">a</span>
+    <span class="fade-in-letter">m</span>
+    <span class="fade-in-letter">o</span>
+    <span class="fade-in-letter"> </span>
+    <span class="fade-in-letter">T</span>
+    <span class="fade-in-letter">i</span>
+    <span class="fade-in-letter">z</span>
+    <span class="fade-in-letter">i</span>
+    <span class="fade-in-letter">a</span>
+    <span class="fade-in-letter">n</span>
+    <span class="fade-in-letter">a</span>
+    <span class="fade-in-letter"> </span>
+    <span class="fade-in-letter heart">❤</span>
+</h1>
+    
 <canvas id="canvas" width="300" height="300"></canvas>
 
 <script>
@@ -51,6 +76,16 @@
         ctx.stroke();
     }
 
+    // Función para rellenar el fondo marrón entre los pétalos y el centro
+    function fillBrownBackground() {
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const brownRadius = 100; // Radio del círculo marrón entre los pétalos y el centro
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, brownRadius, 0, Math.PI * 2);
+        ctx.fillStyle = '#210e0e';
+        ctx.fill();
+    }
     // Dibujar girasol con animación
     function drawSunflower() {
         const centerX = canvas.width / 2;
@@ -58,14 +93,15 @@
         const petalCount = 20;
         const radius = 100;
         let currentPetal = 0;
-
+         // Dibujar el fondo marrón antes de dibujar los pétalos
+        fillBrownBackground();
         // Dibujar cada pétalo uno por uno con animación
         function animatePetals() {
             if (currentPetal < petalCount) {
                 const angle = (currentPetal * 360 / petalCount) * Math.PI / 180;
                 const x = centerX + radius * Math.cos(angle);
                 const y = centerY + radius * Math.sin(angle);
-                drawPetal(x, y, 40, angle);
+                drawPetal(x, y, 30, angle);
                 currentPetal++;
                 setTimeout(animatePetals, 200); // Intervalo de tiempo entre pétalos (200 ms)
             } else {
@@ -77,17 +113,30 @@
         // Dibujar el centro del girasol
         function drawCenter() {
             ctx.beginPath();
-            ctx.arc(centerX, centerY, 30, 0, Math.PI * 2);
-            ctx.fillStyle = 'brown';
+            ctx.arc(centerX, centerY, 50, 0, Math.PI * 2);
+            ctx.fillStyle = 'black';
             ctx.fill();
         }
-
         // Iniciar animación de los pétalos
         animatePetals();
     }
 
     // Iniciar el dibujo del girasol al cargar la página
     drawSunflower();
+
+  // Función para animar el texto letra por letra con fade-in
+    function animateText() {
+        const letters = document.querySelectorAll('.fade-in-letter');
+        letters.forEach((letter, index) => {
+            setTimeout(() => {
+                letter.style.opacity = 1; // Mostrar la letra
+            }, index * 150); // Retraso entre letras (150ms)
+        });
+    }
+    // Iniciar la animación del texto al cargar la página
+    window.onload = function() {
+        animateText();
+    };
 </script>
 
 </body>
