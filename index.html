@@ -17,6 +17,7 @@
 
         canvas {
             background-color: white;
+            border: 1px solid black;
         }
 
         h1 {
@@ -50,29 +51,42 @@
         ctx.stroke();
     }
 
-    // Dibujar girasol
+    // Dibujar girasol con animación
     function drawSunflower() {
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
         const petalCount = 20;
         const radius = 100;
+        let currentPetal = 0;
 
-        // Dibujar pétalos
-        for (let i = 0; i < petalCount; i++) {
-            const angle = (i * 360 / petalCount) * Math.PI / 180;
-            const x = centerX + radius * Math.cos(angle);
-            const y = centerY + radius * Math.sin(angle);
-            drawPetal(x, y, 40, angle);
+        // Dibujar cada pétalo uno por uno con animación
+        function animatePetals() {
+            if (currentPetal < petalCount) {
+                const angle = (currentPetal * 360 / petalCount) * Math.PI / 180;
+                const x = centerX + radius * Math.cos(angle);
+                const y = centerY + radius * Math.sin(angle);
+                drawPetal(x, y, 40, angle);
+                currentPetal++;
+                setTimeout(animatePetals, 200); // Intervalo de tiempo entre pétalos (200 ms)
+            } else {
+                // Después de dibujar los pétalos, dibujar el centro
+                drawCenter();
+            }
         }
 
-        // Dibujar centro
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, 30, 0, Math.PI * 2);
-        ctx.fillStyle = 'brown';
-        ctx.fill();
+        // Dibujar el centro del girasol
+        function drawCenter() {
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 30, 0, Math.PI * 2);
+            ctx.fillStyle = 'brown';
+            ctx.fill();
+        }
+
+        // Iniciar animación de los pétalos
+        animatePetals();
     }
 
-    // Iniciar dibujo
+    // Iniciar el dibujo del girasol al cargar la página
     drawSunflower();
 </script>
 
