@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Te amo Tiziana</title>
+    <title>Regalo 4 años</title>
     <style>
         body {
             display: flex;
@@ -23,15 +23,18 @@
         h1 {
             color: rgb(0, 0, 0);
             font-family: 'Times New Roman', Times, serif;
-            font-size: 48px;
+            font-size: 35px;
             margin: 15px;
         }
         
         .heart {
             color: rgb(255, 0, 0);
-            font-size: 48px;
+            font-size: 100px;
+            position: absolute; 
+            top: 500px;
+            left: 145px; 
         }
-        
+
         .fade-in-letter {
             display: inline-block;
             opacity: 0;
@@ -42,7 +45,7 @@
 <body>
 
 <h1 id="fade-text">
-        <!-- Cada letra envuelta en un span individual -->
+    <!-- Cada letra envuelta en un span individual -->
     <span class="fade-in-letter">T</span>
     <span class="fade-in-letter">e</span>
     <span class="fade-in-letter"> </span>
@@ -117,20 +120,21 @@
             ctx.fillStyle = 'black';
             ctx.fill();
         }
+
         // Iniciar animación de los pétalos
         animatePetals();
     }
 
     // Iniciar el dibujo del girasol al cargar la página
     drawSunflower();
-
-  // Función para animar el texto letra por letra con fade-in
+    
+    // Función para animar el texto letra por letra con fade-in
     function animateText() {
         const letters = document.querySelectorAll('.fade-in-letter');
         letters.forEach((letter, index) => {
             setTimeout(() => {
                 letter.style.opacity = 1; // Mostrar la letra
-            }, index * 150); // Retraso entre letras (150ms)
+            }, index * 250); // Retraso entre letras (150ms)
         });
     }
     // Iniciar la animación del texto al cargar la página
@@ -141,3 +145,4 @@
 
 </body>
 </html>
+
